@@ -30,7 +30,7 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
       >
-        Hi, I'm Anish 👋
+        Hi, I&apos;m Anish 👋
       </motion.h1>
 
       <motion.p
@@ -49,10 +49,10 @@ export default function Home() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.6 }}
       >
-        <a href="https://github.com/anishadhikari" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/adhikari-anish" target="_blank" rel="noopener noreferrer">
           <Github className="text-3xl hover:text-gray-400" />
         </a>
-        <a href="https://linkedin.com/in/anishadhikari" target="_blank" rel="noopener noreferrer">
+        <a href="https://linkedin.com/in/anish-adhikari" target="_blank" rel="noopener noreferrer">
           <Linkedin className="text-3xl hover:text-blue-400" />
         </a>
       </motion.div>
