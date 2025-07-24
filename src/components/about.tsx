@@ -6,10 +6,11 @@ export default function AboutMe() {
   return (
     <section
       id="about"
-      className="bg-black text-white px-6 py-20 flex flex-col items-center justify-center text-center"
+      className="bg-black text-white px-6 py-20 flex flex-col items-center text-center"
     >
+      {/* Section Title */}
       <motion.h2
-        className="text-3xl sm:text-4xl font-bold mb-6"
+        className="text-3xl sm:text-4xl font-bold mb-8"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -18,14 +19,15 @@ export default function AboutMe() {
         About Me
       </motion.h2>
 
+      {/* Description */}
       <motion.p
-        className="text-gray-300 max-w-2xl text-base sm:text-lg leading-relaxed"
-        initial={{ opacity: 0, y: 30 }}
+        className="text-base sm:text-lg text-gray-300 max-w-xl leading-relaxed"
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        I’m Anish Adhikari — a full-stack developer based in Australia 🇦🇺 with a background in web
+        I&apos;m Anish Adhikari — a full-stack developer based in Australia 🇦🇺 with a background in web
         development, cybersecurity, and software engineering. I enjoy solving problems, building scalable systems,
         and continuously learning new technologies. Outside of code, you&apos;ll probably find me exploring design ideas,
         learning about human behavior, or sipping coffee while debugging life.
