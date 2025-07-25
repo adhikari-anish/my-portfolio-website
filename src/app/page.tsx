@@ -2,6 +2,7 @@
 // import { ThemeToggle } from "@/components/theme-toggle";
 "use client";
 import AboutMe from "@/components/about";
+import Certifications from "@/components/certifications";
 import Contact from "@/components/contact";
 import Experience from "@/components/experiences";
 import Footer from "@/components/footer";
@@ -22,6 +23,7 @@ export default function Home() {
       <Projects />
       <Skills />
       <Experience />
+      <Certifications />
       <Contact />
       <Footer />
     </>
