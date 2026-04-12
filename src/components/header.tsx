@@ -1,42 +1,106 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
+import { useActiveSection } from "@/components/active-section-provider";
+import type { SectionName } from "@/lib/types";
 
-const navItems = [
-  { label: "Home", href: "#" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Certifications", href: "#certifications" },
-  { label: "Contact", href: "#contact" },
+type NavItem = {
+  label: SectionName;
+  href: string;
+  sectionId: string;
+};
+
+const navItems: NavItem[] = [
+  { label: "Home", href: "#home", sectionId: "home" },
+  { label: "About", href: "#about", sectionId: "about" },
+  { label: "Projects", href: "#projects", sectionId: "projects" },
+  { label: "Skills", href: "#skills", sectionId: "skills" },
+  { label: "Experience", href: "#experience", sectionId: "experience" },
+  { label: "Contact", href: "#contact", sectionId: "contact" },
 ];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { activeSection, setActiveSection, setTimeOfLastClick } = useActiveSection();
+
+  const sectionById = useMemo(
+    () =>
+      new Map(navItems.map((item) => [item.sectionId, item.label] as const)),
+    []
+  );
 
   // Escape key closes menu
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsOpen(false);
     };
+
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  // Keep nav item in sync with current section while scrolling.
+  useEffect(() => {
+    const sections = navItems
+      .map((item) => document.getElementById(item.sectionId))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        const mostVisible = visibleEntries[0];
+        if (!mostVisible) return;
+
+        const sectionName = sectionById.get(mostVisible.target.id);
+        if (sectionName) {
+          setActiveSection(sectionName);
+        }
+      },
+      {
+        threshold: [0.35, 0.5, 0.65],
+        rootMargin: "-20% 0px -55% 0px",
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [sectionById, setActiveSection]);
+
+  const handleNavClick = (sectionName: SectionName) => {
+    setActiveSection(sectionName);
+    setTimeOfLastClick(Date.now());
+    setIsOpen(false);
+  };
+
+  const getLinkClassName = (sectionName: SectionName) => {
+    const isActive = activeSection === sectionName;
+
+    return isActive
+      ? "text-white bg-white/20 rounded-full px-3 py-1 transition"
+      : "text-gray-300 hover:text-white transition px-3 py-1";
+  };
 
   return (
     <>
       <header className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-fit">
         {/* Desktop nav */}
         <div className="hidden sm:flex bg-white/10 backdrop-blur-md text-white border border-white/20 px-4 py-2 rounded-full items-center gap-4 shadow-lg">
-          <nav className="flex items-center gap-4 text-sm sm:text-base">
+          <nav className="flex items-center gap-2 text-sm sm:text-base">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-gray-300 hover:text-white transition px-2"
+                onClick={() => handleNavClick(item.label)}
+                className={getLinkClassName(item.label)}
+                aria-current={activeSection === item.label ? "page" : undefined}
               >
                 {item.label}
               </a>
@@ -47,7 +111,7 @@ export default function Header() {
         {/* Mobile Menu Button */}
         <div className="sm:hidden flex justify-center">
           <button
-            onClick={() => setIsOpen((prev) => !prev)} // <-- Toggle state here
+            onClick={() => setIsOpen((prev) => !prev)}
             className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full shadow-lg flex items-center text-white"
           >
             {isOpen ? (
@@ -94,8 +158,9 @@ export default function Header() {
                     <a
                       key={item.href}
                       href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className="text-gray-300 hover:text-white transition"
+                      onClick={() => handleNavClick(item.label)}
+                      className={getLinkClassName(item.label)}
+                      aria-current={activeSection === item.label ? "page" : undefined}
                     >
                       {item.label}
                     </a>

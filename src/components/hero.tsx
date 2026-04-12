@@ -6,7 +6,7 @@ import { Github, Linkedin, Download, FolderOpen } from "lucide-react"
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center text-center px-6 py-12 bg-black text-white">
+    <section id="home" className="min-h-screen flex flex-col justify-center items-center text-center px-6 py-12 bg-black text-white">
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
