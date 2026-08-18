@@ -14,7 +14,7 @@ const projects = [
       "Visualized data using ApexCharts.js in Vue and Next.js.",
       "Created multiple chart types: bar, pie, spider, grouped charts, etc."
     ],
-    live: "https://censusnepal.cbs.gov.np/results",
+    live: "https://censusresults.nsonepal.gov.np/",
     tech: ["Node.js", "Next.js", "Vue.js", "ApexCharts", "PostgreSQL"]
   },
   {
@@ -28,7 +28,7 @@ const projects = [
       "Integrated front-end with back-end via REST APIs.",
       "Mentored junior engineers and conducted code reviews."
     ],
-    live: "https://npbmis-stage.yipl.com.np/",
+    live: "https://npbmis.npc.gov.np/",
     tech: ["Node.js", "PostgreSQL", "Prisma", "Next.js", "Ant Design"]
   },
   {
