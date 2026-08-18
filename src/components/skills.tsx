@@ -44,7 +44,7 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 bg-[#0b0b0b] text-white">
+    <section id="skills" className="py-20 bg-[#0b0b0b] text-white">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-10">Skills & Tools</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 justify-items-center">
